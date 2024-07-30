@@ -4,3 +4,9 @@ export interface Task {
   description: string;
   status: 'pending' | 'completed' | 'closed';
 }
+
+export interface TaskStatus {
+  pending: number;
+  completed: number;
+  closed: number;
+}

@@ -4,7 +4,10 @@
     Please add tasks here.
   </p>
   <div class="text-slate-800 flex flex-col gap-8 tracking-wider mt-4">
-    <div *ngFor="let task of tasks" class="bg-slate-300 min-w-24 p-6 px-12">
+    <div
+      *ngFor="let task of tasks | taskStatus"
+      class="bg-slate-300 min-w-24 p-6 px-12"
+    >
       <div *ngIf="editTaskId !== task.id">
         <div class="flex items-center justify-between my-4">
           <p class="font-medium inline-block text-2xl">

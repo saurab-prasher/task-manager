@@ -1,13 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskService } from '../service/Task.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { map, Subscription, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Task } from './task.model';
 import {
   FormBuilder,
@@ -15,12 +9,13 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { TaskStatusPipe } from '../pipes/status.pipe';
 
 @Component({
   selector: 'app-list-task',
   templateUrl: './task-list.component.html',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, ReactiveFormsModule],
+  imports: [NgFor, NgIf, NgClass, ReactiveFormsModule, TaskStatusPipe],
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   taskToBeEdited!: Task[];
