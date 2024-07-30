@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, of, tap } from 'rxjs';
 import { Task } from '../components/task.model';
 
 // DUMMY tasks
@@ -45,13 +45,18 @@ export class TaskService {
     this.taskList.next([...this.taskList.getValue(), task]);
   }
 
+  getTasks() {
+    return this.taskList.asObservable();
+  }
   editTask(id: string) {
-    // TODO: Implement editing task feature
-    return this.taskList.pipe(
-      map((task) => {
-        task.filter((t) => t.id === id);
-      })
-    );
+    return this.taskList.getValue().filter((task) => task.id === id);
+
+    // return this.taskList.pipe(
+    //   map((task) => {
+    //     task.filter((t) => t.id === id);
+    //   }),
+    //   tap((task) => console.log(task))
+    // );
   }
   deleteTask(id: string) {
     return this.taskList.pipe(
