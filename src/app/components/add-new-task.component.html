@@ -1,0 +1,39 @@
+<div>
+  <h3 class="text-2xl">Add a new task</h3>
+  <p
+    class="inline-block bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+    role="alert"
+    *ngIf="errorMessage"
+  >
+    {{ errorMessage }}
+  </p>
+  <form
+    #form="ngForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 items-start mt-4"
+  >
+    <div class="form-group">
+      <label class="block" for="title">Task title</label>
+      <input
+        name="title"
+        [(ngModel)]="title"
+        class="bg-slate-100 p-1 px-2"
+        type="text"
+      />
+    </div>
+    <div class="form-group">
+      <label class="block" for="description">Task description</label>
+      <textarea
+        [(ngModel)]="description"
+        class="bg-slate-100 p-1 px-2"
+        type="text"
+        name="description"
+      ></textarea>
+    </div>
+    <button
+      class="bg-slate-600 p-2 px-4 text-white hover:bg-slate-900 transition-colors"
+    >
+      Add Task
+    </button>
+  </form>
+</div>

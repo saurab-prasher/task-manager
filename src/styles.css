@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@fortawesome/fontawesome-free/css/all.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pending {
+  background-color: #fef08a;
+}
+.pending > span {
+  background-color: rgb(234 179 8);
+}
+
+.completed {
+  background-color: rgb(134 239 172);
+}
+.completed > span {
+  background-color: rgb(44 137 66);
+}
+
+.closed {
+  background-color: rgb(252 165 165);
+}
+
+.closed > span {
+  background-color: rgb(220 53 69);
+}

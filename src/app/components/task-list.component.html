@@ -1,0 +1,74 @@
+<div>
+  <h3 class="text-2xl">List of all the tasks</h3>
+  <p class="text-2xl my-6 inline-block" *ngIf="tasks.length <= 0">
+    Please add tasks here.
+  </p>
+  <div class="text-slate-800 flex flex-col gap-8 tracking-wider mt-4">
+    <div *ngFor="let task of tasks" class="bg-slate-300 min-w-24 p-6 px-12">
+      <div *ngIf="editTaskId !== task.id">
+        <div class="flex items-center justify-between my-4">
+          <p class="font-medium inline-block text-2xl">
+            {{ task.title }}
+          </p>
+          <i
+            (click)="onEditTask(task.id)"
+            class="fa-regular fa-pen-to-square cursor-pointer fa-lg"
+          ></i>
+        </div>
+
+        <p class="text-sm">
+          {{ task.description }}
+        </p>
+
+        <div class="mt-8 flex justify-between items-center">
+          <span
+            [ngClass]="getTaskClass(task)"
+            class="mr-4 rounded-md pending p-1 px-2 text-sm"
+          >
+            <span class="mr-1 w-2 h-2 inline-block rounded-full"> </span>
+            {{ task.status }}
+          </span>
+          <span class="inline-block">
+            <button
+              (click)="onDelete(task.id)"
+              class="text-white py-2 px-4 bg-slate-700 hover:bg-slate-800 transition-colors"
+            >
+              Delete Task
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div *ngIf="editTaskId === task.id">
+        <form class="flex flex-col gap-4 mt-4">
+          <div class="form-group">
+            <label class="block" for="title">Title:</label>
+            <input
+              value="{{ task.title }}"
+              class="bg-slate-100 p-1 px-2 w-full text-base"
+              id="title"
+            />
+          </div>
+          <div>
+            <label class="block" for="description">Description:</label>
+            <textarea
+              rows="4"
+              class="bg-slate-100 p-2 px-2 w-full text-sm"
+              id="description"
+              >{{ task.description }}</textarea
+            >
+          </div>
+
+          <div class="flex gap-4">
+            <button class="bg-green-500 p-2 px-4 text-white" type="submit">
+              Save
+            </button>
+            <button class="bg-red-500 p-2 px-4 text-white" type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
