@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, of, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 import { Task } from '../components/task.model';
 
 // DUMMY tasks
@@ -45,26 +45,32 @@ export class TaskService {
     this.taskList.next([...this.taskList.getValue(), task]);
   }
 
-  getTasks() {
+  getTasks(): Observable<Task[]> {
     return this.taskList.asObservable();
   }
-  editTask(id: string): Task | undefined {
-    return this.taskList.getValue().find((task) => task.id === id);
+
+  getTaskById(id: string) {
+    return this.taskList.pipe(
+      map((tasks) => tasks.find((task) => task.id === id))
+    );
+  }
+  editTask(id: string): Task | null {
+    return this.taskList.getValue().find((task) => task.id === id) || null;
   }
 
   updateTask(task: Task) {
     const tasks = this.taskList.getValue();
-    const taskIndex = tasks.findIndex((task) => task.id === task.id);
+
+    const taskIndex = tasks.findIndex((t) => t.id === task.id);
 
     if (taskIndex > -1) {
       tasks[taskIndex] = task;
       this.taskList.next([...tasks]);
     }
   }
-  deleteTask(id: string) {
-    return this.taskList.pipe(
-      map((task) => task.filter((t) => t.id !== id)),
-      tap((updatedTasks) => this.taskList.next(updatedTasks))
-    );
+  deleteTask(id: string): Observable<void> {
+    const tasks = this.taskList.getValue().filter((task) => task.id !== id);
+    this.taskList.next(tasks);
+    return of();
   }
 }
