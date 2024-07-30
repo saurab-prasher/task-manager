@@ -50,13 +50,26 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // console.warn(this.form.value);
-    // console.log(this.taskToBeEdited);
+    const { title, description } = this.form.value;
+    if (this.editTaskId != null) {
+      const taskToBeEdited = this.taskService.editTask(this.editTaskId);
+
+      if (taskToBeEdited != null) {
+        const updatedTask = {
+          ...taskToBeEdited,
+          title,
+          description,
+        };
+        this.taskService.updateTask(updatedTask);
+      }
+    }
+
+    this.editTaskId = null;
   }
 
   onEditTask(id: string) {
     this.editTaskId = id;
-    console.log(id);
+
     this.subscription.add(
       this.taskService
         .getTasks()
@@ -75,7 +88,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
           },
         })
     );
-    this.taskToBeEdited = this.taskService.editTask(id);
   }
   getTaskClass(task: Task) {
     switch (task.status) {

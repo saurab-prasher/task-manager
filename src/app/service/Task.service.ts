@@ -48,15 +48,18 @@ export class TaskService {
   getTasks() {
     return this.taskList.asObservable();
   }
-  editTask(id: string) {
-    return this.taskList.getValue().filter((task) => task.id === id);
+  editTask(id: string): Task | undefined {
+    return this.taskList.getValue().find((task) => task.id === id);
+  }
 
-    // return this.taskList.pipe(
-    //   map((task) => {
-    //     task.filter((t) => t.id === id);
-    //   }),
-    //   tap((task) => console.log(task))
-    // );
+  updateTask(task: Task) {
+    const tasks = this.taskList.getValue();
+    const taskIndex = tasks.findIndex((task) => task.id === task.id);
+
+    if (taskIndex > -1) {
+      tasks[taskIndex] = task;
+      this.taskList.next([...tasks]);
+    }
   }
   deleteTask(id: string) {
     return this.taskList.pipe(
