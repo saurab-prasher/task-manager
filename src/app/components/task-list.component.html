@@ -5,41 +5,60 @@
   </p>
   <div class="text-slate-800 flex flex-col gap-8 tracking-wider mt-4">
     <div
-      *ngFor="let task of tasks | taskStatus"
+      *ngFor="let task of tasks | taskStatus; let i = index"
       class="bg-slate-300 min-w-24 p-6 px-12"
     >
-      <div *ngIf="editTaskId !== task.id">
-        <div class="flex items-center justify-between my-4">
-          <p class="font-medium inline-block text-2xl">
+      <div
+        class="flex items-center justify-between"
+        *ngIf="editTaskId !== task.id"
+      >
+        <div>
+          <p
+            *ngIf="openPanelIndex !== i"
+            class="font-medium inline-block text-2xl"
+          >
             {{ task.title }}
           </p>
-          <i
-            (click)="onEditTask(task.id)"
-            class="fa-regular fa-pen-to-square cursor-pointer fa-lg"
-          ></i>
-        </div>
 
-        <p class="text-sm">
-          {{ task.description }}
-        </p>
+          <div *ngIf="openPanelIndex === i">
+            <div class="flex items-center justify-between my-4">
+              <p class="font-medium inline-block text-2xl">
+                {{ task.title }}
+              </p>
+              <i
+                (click)="onEditTask(task.id)"
+                class="fa-regular fa-pen-to-square cursor-pointer fa-lg"
+              ></i>
+            </div>
 
-        <div class="mt-8 flex justify-between items-center">
-          <span
-            [ngClass]="getTaskClass(task)"
-            class="mr-4 rounded-md pending p-1 px-2 text-sm"
-          >
-            <span class="mr-1 w-2 h-2 inline-block rounded-full"> </span>
-            {{ task.status }}
-          </span>
-          <span class="inline-block">
-            <button
-              (click)="onDelete(task.id)"
-              class="text-white py-2 px-4 bg-slate-700 hover:bg-slate-800 transition-colors"
-            >
-              Delete Task
-            </button>
-          </span>
+            <p class="text-sm">
+              {{ task.description }}
+            </p>
+
+            <div class="mt-8 flex justify-between items-center">
+              <span
+                [ngClass]="getTaskClass(task)"
+                class="mr-4 rounded-md pending p-1 px-2 text-sm"
+              >
+                <span class="mr-1 w-2 h-2 inline-block rounded-full"> </span>
+                {{ task.status }}
+              </span>
+              <span class="inline-block">
+                <button
+                  (click)="onDelete(task.id)"
+                  class="text-white py-2 px-4 bg-slate-700 hover:bg-slate-800 transition-colors"
+                >
+                  Delete Task
+                </button>
+              </span>
+            </div>
+          </div>
         </div>
+        <i
+          *ngIf="openPanelIndex !== i"
+          (click)="onToggleTask(i)"
+          class="fa-solid fa-caret-down fa-xl cursor-pointer"
+        ></i>
       </div>
 
       <div *ngIf="editTaskId === task.id">

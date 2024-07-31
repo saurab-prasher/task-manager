@@ -25,6 +25,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
   // @ViewChild('form', { static: true }) form!: ElementRef;
   editTaskId: string | null = null;
 
+  openPanelIndex: number | null = null; // Track the index of the open panel
+
   subscription: Subscription = new Subscription();
 
   private editTaskSubscription: Subscription | null = null;
@@ -129,6 +131,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
         error: (err) => console.error('Error deleting task', err),
       })
     );
+  }
+
+  onToggleTask(index: number) {
+    if (this.openPanelIndex === index) {
+      this.openPanelIndex = null; // Close the currently open panel
+    } else {
+      this.openPanelIndex = index; // Open the clicked panel
+    }
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

@@ -12,9 +12,6 @@ const status: TaskStatus = {
 })
 export class TaskStatusPipe implements PipeTransform {
   transform(value: Task[]) {
-    const sortedArray = value.sort((a, b) => {
-      return status[a.status] - status[b.status];
-    });
-    return sortedArray;
+    return value.sort((a, b) => status[a.status] - status[b.status]);
   }
 }

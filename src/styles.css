@@ -28,3 +28,12 @@ body {
 .closed > span {
   background-color: rgb(220 53 69);
 }
+
+.task-container {
+  overflow: hidden;
+  max-height: 0;
+}
+
+.task-container.opened {
+  max-height: none;
+}
