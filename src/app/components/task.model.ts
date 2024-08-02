@@ -3,7 +3,7 @@ export interface Task {
   title: string;
   description?: string;
   status: 'pending' | 'completed' | 'closed';
-  priority?: 'low' | 'medium' | 'high';
+  priority: 'low' | 'medium' | 'high';
 }
 
 export interface TaskStatus {

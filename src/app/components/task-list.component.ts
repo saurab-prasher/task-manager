@@ -32,7 +32,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   // @ViewChild('form', { static: true }) form!: ElementRef;
   editTaskId: string | null = null;
-  filterTerm = '';
+  filterTerm: string = '';
   openPanelIndex: number | null = null; // Track the index of the open panel
 
   subscription: Subscription = new Subscription();
@@ -48,6 +48,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
       title: new FormControl(''),
       description: new FormControl(''),
       status: new FormControl(''),
+      priority: new FormControl(''),
     });
 
     this.subscription.add(
@@ -58,7 +59,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const { title, description, status } = this.form.value;
+    const { title, description, status, priority } = this.form.value;
     if (this.editTaskId != null) {
       const taskToBeEdited = this.tasks.find(
         (task) => task.id === this.editTaskId
@@ -70,6 +71,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
           title,
           description,
           status,
+          priority,
         };
 
         this.taskService.updateTask(updatedTask);
@@ -96,6 +98,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
               title: task.title,
               description: task.description,
               status: task.status,
+              priority: task.priority,
             });
           } else {
             if (this.editTaskId !== null) {
@@ -140,6 +143,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   onFilterChange(term: string) {
+    console.log(term);
     this.filterTerm = term;
   }
   onDelete(id: string) {
