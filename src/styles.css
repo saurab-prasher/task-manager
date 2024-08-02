@@ -37,3 +37,15 @@ body {
 .task-container.opened {
   max-height: none;
 }
+
+.low {
+  background-color: #fdc500;
+}
+
+.medium {
+  background-color: #fd8c00;
+}
+
+.high {
+  background-color: #dc0000;
+}

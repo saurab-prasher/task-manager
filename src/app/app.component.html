@@ -1,8 +1,15 @@
 <main class="p-8 container mx-auto">
   <h2 class="text-3xl">Task Management Application</h2>
 
-  <div class="grid grid-cols-2 gap-24 py-6">
-    <app-list-task />
-    <app-new-task />
+  <div class="py-6">
+    <div class="max-w-96 my-6">
+      <app-new-task-search />
+    </div>
+
+    <!-- <app-new-task /> -->
+    <div class="grid grid-cols-2">
+      <app-list-task />
+      <app-task-details />
+    </div>
   </div>
 </main>

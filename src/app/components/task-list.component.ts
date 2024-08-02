@@ -10,12 +10,20 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { TaskStatusPipe } from '../pipes/status.pipe';
+import { FilterPipe } from '../pipes/filter.pipe';
 
 @Component({
   selector: 'app-list-task',
   templateUrl: './task-list.component.html',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, ReactiveFormsModule, TaskStatusPipe],
+  imports: [
+    NgFor,
+    NgIf,
+    NgClass,
+    ReactiveFormsModule,
+    TaskStatusPipe,
+    FilterPipe,
+  ],
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   taskToBeEdited!: Task[];
@@ -24,7 +32,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   // @ViewChild('form', { static: true }) form!: ElementRef;
   editTaskId: string | null = null;
-
+  filterTerm = '';
   openPanelIndex: number | null = null; // Track the index of the open panel
 
   subscription: Subscription = new Subscription();
@@ -114,11 +122,26 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
   }
 
+  getPriorityClass(task: Task) {
+    switch (task.priority) {
+      case 'low':
+        return 'low';
+      case 'medium':
+        return 'medium';
+      case 'high':
+        return 'high';
+      default:
+        return '';
+    }
+  }
   onCancel() {
     this.editTaskId = null;
     this.form.reset();
   }
 
+  onFilterChange(term: string) {
+    this.filterTerm = term;
+  }
   onDelete(id: string) {
     this.subscription.add(
       this.taskService.deleteTask(id).subscribe({

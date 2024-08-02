@@ -11,6 +11,7 @@ const DUMMY_TASKS: Task[] = [
       'Schedule and organize the monthly team meeting to discuss project updates, upcoming deadlines, and address any team concerns. Prepare an agenda and send out invites to all team members.',
 
     status: 'pending',
+    priority: 'high',
   },
   {
     id: '2',
@@ -18,6 +19,7 @@ const DUMMY_TASKS: Task[] = [
     description:
       'Review and update the project documentation to reflect recent changes and additions. Ensure all sections are accurate and comprehensive, and add any new information that has emerged during the latest development phase.',
     status: 'completed',
+    priority: 'medium',
   },
   {
     id: '3',
@@ -25,6 +27,7 @@ const DUMMY_TASKS: Task[] = [
     description:
       'Plan and conduct user testing for the new feature release. Recruit participants, prepare test scenarios, and gather feedback. Analyze the results to identify any usability issues or areas for improvement.',
     status: 'closed',
+    priority: 'low',
   },
   {
     id: '4',
@@ -32,6 +35,7 @@ const DUMMY_TASKS: Task[] = [
     description:
       'Develop a comprehensive marketing campaign for the upcoming product launch. Create promotional materials, plan social media content, and coordinate with the sales team to align on goals and messaging. Set up tracking to measure campaign effectiveness.',
     status: 'pending',
+    priority: 'medium',
   },
 ];
 
@@ -42,6 +46,7 @@ export class TaskService {
   taskList = new BehaviorSubject<Task[]>(DUMMY_TASKS);
 
   addTask(task: Task) {
+    console.log(task);
     this.taskList.next([...this.taskList.getValue(), task]);
   }
 
